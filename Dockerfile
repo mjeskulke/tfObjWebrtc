@@ -7,10 +7,10 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-RUN python setup.py install
+# RUN python setup.py install
 
 EXPOSE 5000
 
 # Run app.py when the container launches
-CMD ["python", "server.py"]
+# CMD ["python", "server.py"]
 
