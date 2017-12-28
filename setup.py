@@ -19,6 +19,7 @@ setup(
 import six.moves.urllib as urllib
 from zipfile import ZipFile
 import os
+import sys
 import re
 import shutil
 
@@ -29,6 +30,8 @@ REPOSITORY_ZIP_URL = 'https://github.com/tensorflow/models/archive/master.zip'
 try:
     filename, headers = urllib.request.urlretrieve(REPOSITORY_ZIP_URL)
     #filename = 'models-master.zip'
+
+    print("\n... download complete")
 
     target_path = os.path.join(os.getcwd(), 'object_detection/')
     temp_path = filename + "_dir"
@@ -45,6 +48,7 @@ except:
     print("Problem downloading the TensorFlow Object API. \n"
           "Try running `git clone https://github.com/tensorflow/models.git`.\n"
           "Then `cp /research/object_detection to /object_detection` instead")
+    sys.exit(1)
 
 
 '''Compile Protobufs'''
@@ -55,3 +59,19 @@ try:
 
 except:
     print("Error compiling Protobufs")
+    sys.exit(1)
+
+print("\n\nDownloading pretrained model")
+# What model to download.
+MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
+MODEL_FILE = MODEL_NAME + '.tar.gz'
+DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
+
+try:
+    opener = urllib.request.URLopener()
+    opener.retrieve(DOWNLOAD_BASE + MODEL_FILE, MODEL_FILE)
+    print("downloading model complete")
+except:
+
+    print("Error downloading model")
+    sys.exit(1)
