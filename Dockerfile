@@ -1,5 +1,5 @@
 # Use premade runtime as a parent image
-FROM 6783a438c8a7
+FROM chadhart/tensorflow-object-detection:webrtchacks
 
 # Set the working directory to /app
 WORKDIR /app
